@@ -87,5 +87,35 @@ describe "Tests de Orbalion" {
 
     assert.notThat(unEquipoSintetico.esDePrestigioUniversal())
   }
+
+
+  //Checkpoint 4
+
+  test "Equipo eterico con condiciones cumplidas es de prestigio universal" {
+    const tec1 = new TecnologiaComplementaria(nombre = "PortalNet", valorEnergetico = 100, activo = true)
+    const tec2 = new TecnologiaComplementaria(nombre = "Sintonizador", valorEnergetico = 50, activo = true)
+    
+    const equipoEterico = new Eterico(nombre = "Eternity", entrenador = new Entrenador(), nivelDeFluctuacionDimensional = 80, cantidadDePortalesEnergicosAbiertos = 3, listaDeTecnologiasComplementarias = [tec1, tec2])
+
+    assert.that(equipoEterico.esDePrestigioUniversal())
+  }
+
+  test "Verificar que el incremento del 15 por ciento se aplica correctamente cuando es de prestigio" {
+    const tec1 = new TecnologiaComplementaria(nombre = "A", valorEnergetico = 200, activo = true)
+    const tec2 = new TecnologiaComplementaria(nombre = "B", valorEnergetico = 200, activo = true)
+    
+    const equipoEterico = new Eterico(nombre = "EterPlus", nivelDeEnergiaBase = 1000, entrenador = new Entrenador(), nivelDeFluctuacionDimensional = 80, cantidadDePortalesEnergicosAbiertos = 3, listaDeTecnologiasComplementarias = [tec1, tec2])
+
+    assert.equals(1610, equipoEterico.energiaTotal())
+  }
+
+  test "Verificar que un equipo eterico que no cumple las condiciones no suma el incremento del 15 por ciento" {
+    const tec1 = new TecnologiaComplementaria(nombre = "A", valorEnergetico = 200, activo = true)
+    
+    const equipoEtericoIncompleto = new Eterico(nombre = "EterNormal", nivelDeEnergiaBase = 1000, entrenador = new Entrenador(), nivelDeFluctuacionDimensional = 60, cantidadDePortalesEnergicosAbiertos = 1, listaDeTecnologiasComplementarias = [tec1])
+
+    assert.notThat(equipoEtericoIncompleto.esDePrestigioUniversal())
+    assert.equals(1200, equipoEtericoIncompleto.energiaTotal())
+  }
 }
 
