@@ -52,4 +52,40 @@ describe "Tests de Orbalion" {
     const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 15, rol = "Guia Mental")
     assert.that(unEntrenador.esDeEliteGalactica())
   }
+
+
+  //Checkpoint 3
+
+  test "Equipo luminico con 3 cristales, entrenador de elite y una tecnologia activa es de prestigio universal" {
+    const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 12, nivelDePresicionEstrategica = 90, rol = "Estratega Cuantico")
+    const unaTecnologia = new TecnologiaComplementaria(nombre = "Modulador", valorEnergetico = 100, activo = true)
+    const unEquipoLuminico = new Luminico(nombre = "Luminus", entrenador = unEntrenador, nivelDeRadiacionCapturado = 4000, listaDeCristalesSolares = [1, 2, 3], listaDeTecnologiasComplementarias = [unaTecnologia])
+
+    assert.that(unEquipoLuminico.esDePrestigioUniversal())
+  }
+
+  test "Equipo sintetico certificado con 4 modulos y todas las tecnologias activas es de prestigio" {
+    const unaTecnologia = new TecnologiaComplementaria(nombre = "Procesador", valorEnergetico = 150, activo = true)
+    const unEquipoSintetico = new Sintetico(nombre = "CyberCore", entrenador = new Entrenador(), cantidadDeModulosActivos = 4,
+      unidadEstable = true,
+      listaDeTecnologiasComplementarias = [unaTecnologia]
+    )
+
+    assert.that(unEquipoSintetico.esDePrestigioUniversal())
+  }
+
+  test "Equipo luminico con menos de 3 cristales no es de prestigio universal" {
+    const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 12, nivelDePresicionEstrategica = 90)
+    const unaTecnologia = new TecnologiaComplementaria(nombre = "Modulador", activo = true)
+    const unEquipoLuminico = new Luminico(nombre = "Luminus Incompleto", entrenador = unEntrenador, listaDeCristalesSolares = [1, 2], listaDeTecnologiasComplementarias = [unaTecnologia])
+
+    assert.notThat(unEquipoLuminico.esDePrestigioUniversal())
+  }
+
+  test "Equipo sintetico no estable o con modulos insuficientes no es de prestigio" {
+    const unEquipoSintetico = new Sintetico(nombre = "CyberInestable", entrenador = new Entrenador(), cantidadDeModulosActivos = 2, unidadEstable = false)
+
+    assert.notThat(unEquipoSintetico.esDePrestigioUniversal())
+  }
 }
+

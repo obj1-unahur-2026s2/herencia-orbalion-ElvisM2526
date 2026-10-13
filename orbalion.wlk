@@ -14,6 +14,8 @@ class Equipo {
     const tecnologiasActivas = listaDeTecnologiasComplementarias.filter({unaTecnologia => unaTecnologia.activo()})
     return nivelDeEnergiaBase + tecnologiasActivas.sum({unaTecnologia => unaTecnologia.valorEnergetico()})
   }
+
+  method esDePrestigioUniversal() = false
 }
 
 //Linajes
@@ -32,6 +34,12 @@ class Luminico inherits Equipo{
         return super()
     }
   }
+
+  override method esDePrestigioUniversal() {
+    const almenosUnaTecnologiaActiva = listaDeTecnologiasComplementarias.any({unaTecnologia => unaTecnologia.activo()})
+
+    return (listaDeCristalesSolares.size() >= 3) and self.entrenador().esDeEliteGalactica() and almenosUnaTecnologiaActiva
+  }
 }
 
 class Sintetico inherits Equipo{
@@ -49,6 +57,12 @@ class Sintetico inherits Equipo{
     } else{
         return super()
     }
+  }
+
+  override method esDePrestigioUniversal() {
+    const todasLasTecnologiasActivas = listaDeTecnologiasComplementarias.all({unaTecnologia => unaTecnologia.activo()})
+
+    return unidadEstable and (cantidadDeModulosActivos > 3) and todasLasTecnologiasActivas
   }
 }
 
