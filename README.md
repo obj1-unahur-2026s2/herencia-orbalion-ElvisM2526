@@ -28,7 +28,7 @@ Cada equipo pertenece a un linaje energético: **Lumínico**, **Sintético** o *
   - Si están o no certificados como unidad estable de competición
 
 - **Etéricos**: además necesitan
-  - Nivel de fluctuación dimensional (valor numérico)
+  - Nivel de fluctuación dimensional (valor numérico)nive
   - Cantidad de portales energéticos abiertos (valor numérico)
 
 ---

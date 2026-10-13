@@ -1,0 +1,37 @@
+import orbalion.*
+
+describe "Tests del Checkpoint 1 - Orbalion" {
+
+  test "Un entrenador no puede tener un rol distinto a los autorizados por la FOZ" {
+    const unEntrenador = new Entrenador()
+    assert.throwsException({ unEntrenador.cambiar("Piloto Galactico") })
+  }
+
+  test "Un equipo luminico con radiacion mayor a 5000 y sin tecnologias activas su energia total es su energia base" {
+    const unEntrenador = new Entrenador()
+    const equipoLum = new Luminico(nombre = "Rayos", nivelDeEnergiaBase = 1000, entrenador = unEntrenador, nivelDeRadiacionCapturado = 6000)
+    assert.equals(1000, equipoLum.energiaTotal())
+  }
+
+  test "Un equipo luminico con radiacion menor a 5000 obtiene el bono del 10 por ciento" {
+    const unEntrenador = new Entrenador()
+    const equipoLum = new Luminico(nombre = "Fotones", nivelDeEnergiaBase = 1000, entrenador = unEntrenador, nivelDeRadiacionCapturado = 4000)
+    assert.equals(1100, equipoLum.energiaTotal())
+  }
+
+  test "Un equipo sintetico con 6 modulos aplica correctamente la penalizacion del 20 por ciento" {
+    const unEntrenador = new Entrenador()
+    const equipoSin = new Sintetico(nombre = "Robots", nivelDeEnergiaBase = 1000, entrenador = unEntrenador, cantidadDeModulosActivos = 6)
+    assert.equals(800, equipoSin.energiaTotal())
+  }
+
+  test "Un equipo sintetico con 4 modulos y 2 tecnologias complementarias suma correctamente los valores energeticos" {
+    const unEntrenador = new Entrenador()
+    const tec1 = new TecnologiaComplementaria(nombre = "Nucleo", valorEnergetico = 200, activo = true)
+    const tec2 = new TecnologiaComplementaria(nombre = "Interfaz", valorEnergetico = 300, activo = true)
+    
+    const equipoSin = new Sintetico(nombre = "Ciberneticos", nivelDeEnergiaBase = 1000, entrenador = unEntrenador, cantidadDeModulosActivos = 4, listaDeTecnologiasComplementarias = [tec1, tec2])
+    
+    assert.equals(1500, equipoSin.energiaTotal())
+  }
+}
