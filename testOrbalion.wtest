@@ -1,7 +1,7 @@
 import orbalion.*
 
-describe "Tests del Checkpoint 1 - Orbalion" {
-
+describe "Tests de Orbalion" {
+  //Checkpoint 1
   test "Un entrenador no puede tener un rol distinto a los autorizados por la FOZ" {
     const unEntrenador = new Entrenador()
     assert.throwsException({ unEntrenador.cambiar("Piloto Galactico") })
@@ -33,5 +33,23 @@ describe "Tests del Checkpoint 1 - Orbalion" {
     const equipoSin = new Sintetico(nombre = "Ciberneticos", nivelDeEnergiaBase = 1000, entrenador = unEntrenador, cantidadDeModulosActivos = 4, listaDeTecnologiasComplementarias = [tec1, tec2])
     
     assert.equals(1500, equipoSin.energiaTotal())
+  }
+  
+  
+  //Checkpoint 2
+
+  test "Estratega cuantico con 12 ciclos y precision 90 es de elite galactica" {
+    const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 12, nivelDePresicionEstrategica = 90)
+    assert.that(unEntrenador.esDeEliteGalactica())
+  }
+
+  test "Arquitecto de energia con 11 ciclos pero sin sintonia no es de elite" {
+    const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 11, rol = "Arquitecto de Energia")
+    assert.notThat(unEntrenador.esDeEliteGalactica())
+  }
+
+  test "Guia mental con 15 ciclos siempre es de elite" {
+    const unEntrenador = new Entrenador(cantidadDeCiclosSolaresDeExperiencia = 15, rol = "Guia Mental")
+    assert.that(unEntrenador.esDeEliteGalactica())
   }
 }

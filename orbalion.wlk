@@ -20,7 +20,7 @@ class Equipo {
 
 class Luminico inherits Equipo{
   var nivelDeRadiacionCapturado = 0
-  var listaDeCristalesSolares = []
+  const listaDeCristalesSolares = []
 
   method nivelDeRadiacionCapturado() = nivelDeRadiacionCapturado
   method listaDeCristalesSolares() = listaDeCristalesSolares
@@ -79,6 +79,10 @@ class Entrenador {
     } else{
         self.error("Rol no homologado por la FOZ")
     }
+  }
+
+  method esDeEliteGalactica() {
+    return cantidadDeCiclosSolaresDeExperiencia > 10 and ((rol == "Estratega Cuantico" and nivelDePresicionEstrategica > 80) or (rol == "Arquitecto de Energia" and estaEnSintoniaConSuEquipo) or (rol == "Guia Mental"))
   }
 }
 
